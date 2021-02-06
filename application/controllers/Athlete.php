@@ -39,6 +39,26 @@ class Athlete extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function detail_scores($id_detail)
+    {
+        $data['title'] = 'Detail Scores';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
+            WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
+            `athlete`.`id_atlet` = `athlete_scores`.`id_athelete` AND
+            `athlete_scores`.`id` = " . $id_detail . " AND
+            `user`.`id` = " . $this->session->userdata('id') . " ORDER BY `athlete_scores`.`total` DESC";
+            
+        $data['athlete'] = $this->db->query($sql)->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('athlete/detail_scores', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function goscore()
     {
         $data['title'] = 'Go Scoring!';

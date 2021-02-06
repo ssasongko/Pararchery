@@ -31,7 +31,7 @@ class Coach extends CI_Controller
 
     public function listArchers()
     {
-        $data['title'] = 'List Archers | Parachery';
+        $data['title'] = 'List Archers';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $sql = "SELECT * FROM user, athlete WHERE `user`.id = `athlete`.`id_atlet` ORDER BY birth_date DESC";

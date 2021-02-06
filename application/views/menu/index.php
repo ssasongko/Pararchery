@@ -51,8 +51,6 @@
 <!-- End of Main Content -->
 
 <!-- Modal -->
-
-<!-- Modal -->
 <div class="modal fade" id="newMenuModal" tabindex="-1" role="dialog" aria-labelledby="newMenuModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

@@ -29,8 +29,8 @@
                         <th scope="col">Gender</th>
                         <th scope="col">Status</th>
                         <th scope="col">Class</th>
-                        <th scope="col">Best Scores</th>
-                        <th scope="col">Score Date</th>
+                    <!--     <th scope="col">Best Scores</th>
+                        <th scope="col">Score Date</th> -->
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -48,8 +48,8 @@
                         <td><?= $a['gender']; ?></td>
                         <td><?= $a['status']; ?></td>
                         <td><?= $a['class']; ?></td>
-                        <td></td>
-                        <td></td>
+                        <!-- <td></td>
+                        <td></td> -->
                         <td><a href="#" class="badge badge-warning" data-toggle="modal" data-target="#myModal">Detail</a>
                         </td>
                     </tr>
