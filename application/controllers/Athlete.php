@@ -15,34 +15,43 @@ class Athlete extends CI_Controller
         $data['title'] = 'Home Athlete';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        // Logic to Get Values from DB
-        if($time == "All Time"){
-            $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-                WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
-                `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
-                 ORDER BY `athlete_scores`.`total` DESC";
-            $data['athlete'] = $this->db->query($sql)->result_array();    
-        }
-        else if($time == date('Y')){
-
-            
-            $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-                WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
-                `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
-                 ORDER BY `athlete_scores`.`total` DESC";
-            $data['athlete'] = $this->db->query($sql)->result_array();
-               // AND `athlete_scores`.`date` = " . date("Y",strtotime
-               //      (`date`) .  "
-        }
-        else{
-            $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-            WHERE `user`.`id` = 0";
-        $data['athlete'] = $this->db->query($sql)->result_array();
-        }
-        
-
         // Title
+
+        $this->form_validation->set_rules('time', 'Time', 'required');
+
+        $time = $this->input->post('time');
         $data['time'] = $time;
+        if ($this->form_validation->run() == true) {
+            if ($time == "All Time") {
+                $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
+                    WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
+                    `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
+                     ORDER BY `athlete_scores`.`total` DESC";
+                $data['athlete'] = $this->db->query($sql)->result_array();
+            } else if ($time == date('Y')) {
+                $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
+                    WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
+                    `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
+                    AND `athlete_scores`.`date_scores` LIKE '%" . $time . "%'
+                    ORDER BY `athlete_scores`.`total` DESC";
+                $data['athlete'] = $this->db->query($sql)->result_array();
+            } else {
+                $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
+                    WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
+                    `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
+                    AND `athlete_scores`.`date_scores` LIKE '%-" . $time . "-%'
+                    ORDER BY `athlete_scores`.`total` DESC";
+                $data['time'] = date("F Y", mktime(0, 0, 0, $time, 10));
+                $data['athlete'] = $this->db->query($sql)->result_array();
+            }
+        } else {
+            // no data
+            $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
+                    WHERE `user`.`id` = 0";
+            $data['athlete'] = $this->db->query($sql)->result_array();
+        }
+
+        // Logic to Get Values from DB
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -60,7 +69,7 @@ class Athlete extends CI_Controller
             WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
             `athlete`.`id_atlet` = `athlete_scores`.`id_athelete` AND
             `user`.`id` = " . $this->session->userdata('id') . " ORDER BY `athlete_scores`.`total` DESC";
-            
+
         $data['athlete'] = $this->db->query($sql)->result_array();
 
         $this->load->view('templates/header', $data);
@@ -80,7 +89,7 @@ class Athlete extends CI_Controller
             `athlete`.`id_atlet` = `athlete_scores`.`id_athelete` AND
             `athlete_scores`.`id` = " . $id_detail . " AND
             `user`.`id` = " . $this->session->userdata('id') . " ORDER BY `athlete_scores`.`total` DESC";
-            
+
         $data['athlete'] = $this->db->query($sql)->result_array();
 
         $this->load->view('templates/header', $data);
@@ -95,7 +104,7 @@ class Athlete extends CI_Controller
         $data['title'] = 'Go Scoring!';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['myId'] = $this->session->userdata('id');
-        
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -108,7 +117,7 @@ class Athlete extends CI_Controller
         $data['title'] = 'Leaderboards';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['myId'] = $this->session->userdata('id');
-        
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -125,17 +134,14 @@ class Athlete extends CI_Controller
         $this->form_validation->set_rules('location', 'Location', 'required');
         $this->form_validation->set_rules('distance', 'Distance', 'required');
 
-        if ($this->form_validation->run() == false) 
-        {
+        if ($this->form_validation->run() == false) {
             $data['title'] = 'Go Scoring!';
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('athlete/goscore', $data);
             $this->load->view('templates/footer');
-        }
-        else
-        {
+        } else {
             $id = $data['myId'];
 
             $ra11 = $this->input->post('ra11');
@@ -168,20 +174,20 @@ class Athlete extends CI_Controller
             $ra101 = $this->input->post('ra101');
             $ra102 = $this->input->post('ra102');
             $ra103 = $this->input->post('ra103');
-            $total = $ra11 + $ra12 + $ra13 + 
-                    $ra21 + $ra22 + $ra23 + 
-                    $ra31 + $ra32 + $ra33 +
-                    $ra41 + $ra42 + $ra43 +
-                    $ra51 + $ra52 + $ra53 +
-                    $ra61 + $ra62 + $ra63 +
-                    $ra71 + $ra72 + $ra73 +
-                    $ra81 + $ra82 + $ra83 +
-                    $ra91 + $ra92 + $ra93 +
-                    $ra101 + $ra102 + $ra103;
+            $total = $ra11 + $ra12 + $ra13 +
+                $ra21 + $ra22 + $ra23 +
+                $ra31 + $ra32 + $ra33 +
+                $ra41 + $ra42 + $ra43 +
+                $ra51 + $ra52 + $ra53 +
+                $ra61 + $ra62 + $ra63 +
+                $ra71 + $ra72 + $ra73 +
+                $ra81 + $ra82 + $ra83 +
+                $ra91 + $ra92 + $ra93 +
+                $ra101 + $ra102 + $ra103;
 
             $data = [
                 'id_athelete' => $id,
-                'date' => $this->input->post('date'),
+                'date_scores' => $this->input->post('date'),
                 'location' => $this->input->post('location'),
                 'distance' => $this->input->post('distance'),
                 "`11`" => $ra11,
@@ -210,7 +216,7 @@ class Athlete extends CI_Controller
                 "`83`" => $ra83,
                 "`91`" => $ra91,
                 "`92`" => $ra92,
-                "`93`" => $ra93,                           
+                "`93`" => $ra93,
                 "`101`" => $ra101,
                 "`102`" => $ra102,
                 "`103`" => $ra103,
@@ -222,7 +228,5 @@ class Athlete extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Scoring berhasil disimpan</div>');
             redirect('athlete/myscores');
         }
-
     }
-
 }

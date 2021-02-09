@@ -49,19 +49,13 @@ class Auth extends CI_Controller
                         'role_id' => $user['role_id']
                     ];
                     $this->session->set_userdata($data);
-                    if ($user['role_id'] == 1) 
-                    {
+                    if ($user['role_id'] == 1) {
                         redirect('admin');
-                    } 
-                    else if ($user['role_id'] == 2) 
-                    {
+                    } else if ($user['role_id'] == 2) {
                         redirect('coach');
+                    } else {
+                        redirect('athlete');
                     }
-                    else
-                    {
-                        redirect('athlete');  
-                    }  
-                        
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password!</div>');
                     redirect('auth');
@@ -121,7 +115,7 @@ class Auth extends CI_Controller
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('role_id');
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">You have been logged out!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Sucess Logout!</div>');
         redirect('auth');
     }
 

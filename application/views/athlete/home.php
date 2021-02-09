@@ -4,30 +4,27 @@
     <!-- Page Heading -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="h3 mb-3 text-gray-800 text-center">Leaderboards <?= $time?></h1>
+            <h1 class="h3 mb-3 text-gray-800 text-center">Leaderboards <?= $time ?></h1>
         </div>
-
-         <?php
-            $d=strtotime("2021");
-            var_dump($d);
-        ?> 
 
         <!-- Select Button -->
-        <div class="col-md-3">        
-        <form class="user" method="post" action="<?= base_url('athlete/index/')?>">
-            <!-- Time -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Time</span>
+        <div class="col-md-3">
+            <form class="user" method="post" action="<?= base_url('athlete/index/') ?>">
+                <!-- Time -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Time</span>
+                    </div>
+                    <select class="custom-select" id="time" name="time">
+                        <option value="" selected hidden disabled><?= (set_value('time')); ?></option>
+                        <option value="All Time">All Time</option>
+                        <option value="<?= date('Y') ?>">Year - <?= date('Y') ?></option>
+                        <option value="<?= date('m') ?>">Month - <?= date('F') ?></option>
+                    </select>
+                    <?= form_error('time', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
-                <select class="custom-select" id="time" name="time" required>
-                    <option value="" selected hidden disabled></option> 
-                    <option value="All Time">All Time</option> 
-                    <option value="<?= date('Y')?>">Year - <?= date('Y')?></option>                   
-                    <option value="Month">Month - <?= date('F')?></option>
-                </select>
-            </div>
         </div>
+
         <!-- <div class="col-md-3"> 
             
             <div class="input-group mb-3">
@@ -51,8 +48,8 @@
             </div>
         </div> -->
         <div class="col-md-2 mb-2">
-        <button class="btn btn-primary">Submit</button>
-        </form>
+            <button class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </div>
 
@@ -61,41 +58,41 @@
 
             <?= $this->session->flashdata('message'); ?>
             <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Position</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Total</th>                      
-                        <th scope="col">Distance</th>
-                        <!-- <th scope="col">Action</th>                         -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($athlete as $a) : ?>
-                    <tr class="leaderboard">
-                        <td><?= $i; ?></th>
-                        <td><?= $a['name']; ?></td>
-                        <td><?= date("d M Y, H:i:s",$a['date']); ?></td>
-                        <td><?= $a['location']; ?></td>
-                        <td><?= $a['total']; ?></td>
-                        <!-- <td><?= $a['distance']; ?> Meter</td> -->                        
-                        <td>
-                            <a href="<?= base_url('athlete/detail_scores/') . $a['id']?>" class="badge badge-warning">Detail</a>
-                        </td>
-                    </tr>
-                    <?php $i++; ?>
-                    <?php endforeach; ?> 
-                </tbody>
-            </table>    
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Position</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Distance</th>
+                            <!-- <th scope="col">Action</th>                         -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        <?php foreach ($athlete as $a) : ?>
+                            <tr class="leaderboard">
+                                <td><?= $i; ?></th>
+                                <td><?= $a['name']; ?></td>
+                                <td><?= $a['date_scores']; ?></td>
+                                <td><?= $a['location']; ?></td>
+                                <td><?= $a['total']; ?></td>
+                                <!-- <td><?= $a['distance']; ?> Meter</td> -->
+                                <td>
+                                    <a href="<?= base_url('athlete/detail_scores/') . $a['id'] ?>" class="badge badge-warning">Detail</a>
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-        </div>
-        </div>
     </div>
+</div>
+</div>
 
 
 </div>

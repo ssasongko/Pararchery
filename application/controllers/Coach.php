@@ -14,7 +14,7 @@ class Coach extends CI_Controller
         $data['title'] = 'Home Coach';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-    
+
         $data['totalAthletes'] = $this->db->query("SELECT * FROM `athlete`")->num_rows();
         $data['totalUsersBAR'] = $this->db->query("SELECT * FROM `athlete` WHERE class='Barebow Bow'")->num_rows();
         $data['totalUsersSTD'] = $this->db->query("SELECT * FROM `athlete` WHERE class='Standard Bow' ")->num_rows();
@@ -58,4 +58,3 @@ class Coach extends CI_Controller
     //     $this->load->view('admin/role', $data);
     //     $this->load->view('templates/footer');
     // }
-
