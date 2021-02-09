@@ -34,7 +34,7 @@
                 <?= form_error('location', '<small class="d-block p-2 text-danger pl-3">', '</small>'); ?>
             </div>
 
-            <div class="input-group mb-3" style="size: 10px;">
+            <div class="input-group mb-3">
                 <label class="text p-2" for="distance">Distance : </label>
                 <input type="text" class="form-control" id="distance" name="distance" placeholder=""> 
                 <label class="text p-2" style="margin-right: 60%;" for="distance"> Meter</label>

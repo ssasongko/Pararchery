@@ -11,8 +11,39 @@ class Athlete extends CI_Controller
 
     public function index()
     {
+        $time = $this->input->post('time');
         $data['title'] = 'Home Athlete';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        // Logic to Get Values from DB
+        if($time == "All Time"){
+            $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
+                WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
+                `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
+                 ORDER BY `athlete_scores`.`total` DESC";
+            $data['athlete'] = $this->db->query($sql)->result_array();    
+        }
+        else if($time == date('Y')){
+
+            
+            $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
+                WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
+                `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
+                 ORDER BY `athlete_scores`.`total` DESC";
+            $data['athlete'] = $this->db->query($sql)->result_array();
+               // AND `athlete_scores`.`date` = " . date("Y",strtotime
+               //      (`date`) .  "
+        }
+        else{
+            $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
+            WHERE `user`.`id` = 0";
+        $data['athlete'] = $this->db->query($sql)->result_array();
+        }
+        
+
+        // Title
+        $data['time'] = $time;
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

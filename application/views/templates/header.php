@@ -23,6 +23,21 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
 
+    <style type="text/css">
+        td{
+            color: black;
+        }
+        .leaderboard:nth-child(1) {
+            background: #ffd700;
+        }
+        .leaderboard:nth-child(2) {
+            background: #c0c0c0;
+        }
+        .leaderboard:nth-child(3) {
+            background: #cd7f32
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
