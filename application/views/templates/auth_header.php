@@ -20,6 +20,9 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- My Styles -->
+    <link href="<?= base_url('assets/'); ?>css/my.css" rel="stylesheet">
+
 </head>
 
-<body class="bg-gradient-danger" style="background: url(<?= base_url('assets/img/'); ?>bg-login.jpg"> 
+<body class="bg-gradient-danger login-bg">
