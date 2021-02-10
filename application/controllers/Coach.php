@@ -48,14 +48,12 @@ class Coach extends CI_Controller
     // made by irfan
     public function listScores()
     {
-        $data['title'] = 'List Archers';
+        $data['title'] = 'List Scores';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT * FROM user, athlete WHERE `user`.id = `athlete`.`id_atlet` ORDER BY birth_date DESC";
-        $data['athlete'] = $this->db->query($sql)->result_array();
+        $sql = "SELECT * FROM user, athlete_scores WHERE `user`.id = `athlete_scores`.`id_athelete` ";
+        $data['athlete_scores'] = $this->db->query($sql)->result_array();
         $data['yearNow'] = date('Y');
-
-        $data['umur'] = 20;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
