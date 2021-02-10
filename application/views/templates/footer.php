@@ -2,12 +2,12 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; 
+                        <span>Copyright &copy;
                             IF-2 UNIKOM Angkatan 2019
                             <!-- NUR SASONGKO | YOHANA SRI REJEKI | IRFAN GINANJAR -->
                             <!-- <?= date('Y'); ?> -->
-                                
-                            </span>
+
+                        </span>
                     </div>
                 </div>
             </footer>
@@ -54,18 +54,22 @@
             <!-- Custom scripts for all pages-->
             <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 
+            <!-- Datatable -->
+            <!-- <script src="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
+            <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+
             <script>
-                $('.custom-file-input').on('change', function() {
-                    let fileName = $(this).val().split('\\').pop();
-                    $(this).next('.custom-file-label').addClass("selected").html(fileName);
+                $(document).ready(function() {
+                    $('#dataTable').DataTable();
                 });
 
-
-
+                $('.custom-file-input').on('change', function() {
+                    let fileName = $(this).val().split('\\').pop();
+                    $(this).next('.custom-file-label').addClass(" selected").html(fileName);
+                });
                 $('.form-check-input').on('click', function() {
                     const menuId = $(this).data('menu');
                     const roleId = $(this).data('role');
-
                     $.ajax({
                         url: "<?= base_url('admin/changeaccess'); ?>",
                         type: 'post',
@@ -77,10 +81,8 @@
                             document.location.href = "<?= base_url('admin/roleaccess/'); ?>" + roleId;
                         }
                     });
-
                 });
             </script>
-
             </body>
 
-            </html> 
+            </html>

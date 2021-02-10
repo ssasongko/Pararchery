@@ -19,10 +19,10 @@
 
 
             <div class="table-responsive">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped" id="dataTable">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope=" col">#</th>
                             <!-- <th scope="col">Name</th> -->
                             <th scope="col">Date</th>
                             <th scope="col">Location</th>
@@ -41,8 +41,7 @@
                                 <td><?= $a['total']; ?></td>
                                 <td><?= $a['distance']; ?> Meter</td>
                                 <td>
-                                    <a href="<?= base_url('athlete/detail_scores/') . $a['id'] ?>" class="badge badge-warning">Detail</a>
-                                    <!-- <a href="#" class="badge badge-warning" data-toggle="modal" data-target="#detail">Detail</a> -->
+                                    <a href="<?= base_url('athlete/detail_scores_lead/') . $a['id'] ?>" class="badge badge-warning">Detail</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

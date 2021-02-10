@@ -23,12 +23,21 @@ class Admin extends CI_Controller
 
     public function manage()
     {
+        $this->form_validation->set_rules('name', 'Name', 'trim|required');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[3]');
+
         $data['title'] = 'Manage Account';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-         $sql = "SELECT * FROM `user`, `user_role` WHERE `user`.role_id = `user_role`.id";
-            
+        $sql = "SELECT * FROM `user`, `user_role` WHERE `user`.role_id = `user_role`.id ORDER BY role_id,name ASC";
+
         $data['athlete'] = $this->db->query($sql)->result_array();
+
+        if ($this->form_validation->run() == true) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Account has been created!</div>');
+            $this->form_validation->run() == false;
+        }
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
