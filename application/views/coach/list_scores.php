@@ -4,12 +4,8 @@
     <!-- Page Heading -->
     <div class="row">
         <div class="col-md-8 col-sm-12">
-            <h1 class="h3 mb-4 text-gray-800">My Scores</h1>
-            <!--   <p>Latest data updated on 1 Februari 2021</p> -->
+            <h1 class="h3 mb-4 text-gray-800">Lists Scores</h1>
         </div>
-        <!--         <div class="col-md-4 col-sm-8">
-            <a href="#" class="btn btn-success float-right mr-0">Tambah Atlet</a>
-        </div> -->
     </div>
 
     <div class="row">
@@ -18,7 +14,7 @@
             <?= $this->session->flashdata('message'); ?>
 
             <div class="table-responsive">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped" id="dataTable">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

@@ -24,18 +24,37 @@ class Admin extends CI_Controller
     public function manage()
     {
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules(
+            'email',
+            'Email',
+            'trim|required|valid_email|is_unique[user.email]',
+            [
+                'is_unique' => 'This email has already registered!'
+            ]
+        );
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[3]');
 
         $data['title'] = 'Manage Account';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT * FROM `user`, `user_role` WHERE `user`.role_id = `user_role`.id ORDER BY role_id,name ASC";
+        $sql = "SELECT * FROM `user`, `user_role` WHERE `user`.role_id = `user_role`.id_role ORDER BY role_id,name ASC";
 
         $data['athlete'] = $this->db->query($sql)->result_array();
 
+        date_default_timezone_set("Asia/Jakarta");
         if ($this->form_validation->run() == true) {
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Account has been created!</div>');
+            $account = [
+                'name' => htmlspecialchars($this->input->post('name', true)),
+                'email' => htmlspecialchars($this->input->post('email', true)),
+                'image' => 'default.jpg',
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'role_id' => $this->input->post('role', true),
+                'is_active' => 1,
+                'date_created' => time()
+            ];
+
+            $this->db->insert('user', $account);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Account name : ' . $account['name'] . ' been created!</div>');
             $this->form_validation->run() == false;
         }
 
@@ -44,6 +63,17 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/manage', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function delete($id)
+    {
+        echo $id;
+        $this->db->delete('user', array('id' => $id));
+        // $this->db->delete('athlete', array('id' => $id));
+
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account has been deleted!</div>');
+        $this->manage();
     }
 
     public function role()
