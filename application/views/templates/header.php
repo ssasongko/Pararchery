@@ -11,7 +11,7 @@
 
     <title><?= $title; ?></title>
 
-    <link rel="stylesheet" type="text/css" href="">
+    <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/img/'); ?>phac.ico" />
 
     <!-- Custom fonts for this template-->
@@ -21,18 +21,25 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css" />
+
+    <!-- Custom styles for this page -->
+    <link href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet">
+
 
     <style type="text/css">
-        td{
+        td {
             color: black;
         }
+
         .leaderboard:nth-child(1) {
             background: #ffd700;
         }
+
         .leaderboard:nth-child(2) {
             background: #c0c0c0;
         }
+
         .leaderboard:nth-child(3) {
             background: #cd7f32
         }
@@ -43,4 +50,4 @@
 <body id="page-top">
 
     <!-- Page Wrapper -->
-    <div id="wrapper"> 
+    <div id="wrapper">

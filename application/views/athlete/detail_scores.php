@@ -33,8 +33,8 @@
                     <input type="text" class="form-control" id="location" name="location" value="<?= $athlete[0]['location'] ?>" disabled>
                 </div>
                 <div class="form-group ">
-                    <label class="text" for="distance">Distance </label>
-                    <input size="50" type="text" class="form-control" id="distance" name="distance" value="<?= $athlete[0]['distance'] ?>" disabled>
+                    <label class="text" for="distance">Distance</label>
+                    <input size="50" type="text" class="form-control" id="distance" name="distance" value="<?= $athlete[0]['distance'] . ' Meter' ?>" disabled>
                 </div>
             </form>
 
