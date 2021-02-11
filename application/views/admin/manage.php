@@ -6,7 +6,7 @@
         <div class="col-lg-12 d-flex justify-content-between mb-3">
             <h1 class="h3 text-gray-800"><?= $title; ?></h1>
 
-            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#newAccountModal">Add New Account</a>
+            <a href="<?= base_url('admin/addathlete') ?>" class="btn btn-primary">Add New Athlete</a>
         </div>
 
 
