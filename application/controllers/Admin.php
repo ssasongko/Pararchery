@@ -41,23 +41,6 @@ class Admin extends CI_Controller
 
         $data['athlete'] = $this->db->query($sql)->result_array();
 
-        date_default_timezone_set("Asia/Jakarta");
-        if ($this->form_validation->run() == true) {
-            $account = [
-                'name' => htmlspecialchars($this->input->post('name', true)),
-                'email' => htmlspecialchars($this->input->post('email', true)),
-                'image' => 'default.jpg',
-                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-                'role_id' => $this->input->post('role', true),
-                'is_active' => 1,
-                'date_created' => time()
-            ];
-
-            $this->db->insert('user', $account);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Account name : ' . $account['name'] . ' been created!</div>');
-            $this->form_validation->run() == false;
-        }
-
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -70,6 +53,49 @@ class Admin extends CI_Controller
         $data['title'] = 'Manage Account';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        $this->form_validation->set_rules('name', 'Name', 'trim|required');
+        $this->form_validation->set_rules(
+            'email',
+            'Email',
+            'trim|required|valid_email|is_unique[user.email]',
+            [
+                'is_unique' => 'This email has already registered!'
+            ]
+        );
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[3]');
+        $this->form_validation->set_rules('date', 'Date', 'required');
+        $this->form_validation->set_rules('status', 'Status', 'required');
+
+        date_default_timezone_set("Asia/Jakarta");
+        if ($this->form_validation->run() == true) {
+            $account = [
+                'name' => htmlspecialchars($this->input->post('name', true)),
+                'email' => htmlspecialchars($this->input->post('email', true)),
+                'image' => 'default.jpg',
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'role_id' => 3,
+                'is_active' => 1,
+                'date_created' => time()
+            ];
+            $this->db->insert('user', $account);
+
+            $sql = "SELECT id FROM user WHERE email = " . "'" . $this->input->post('email', true) . "'";
+            $id_atlet = $this->db->query($sql)->result_array();
+
+            $accountDetail = [
+                'id_atlet' => (int) $id_atlet[0]['id'],
+                'birth_date' => htmlspecialchars($this->input->post('date', true)),
+                'gender' => $this->input->post('gender', true),
+                'status' => htmlspecialchars($this->input->post('status', true)),
+                'class' => $this->input->post('classes', true)
+
+            ];
+            $this->db->insert('athlete', $accountDetail);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Account name : ' . $account['name'] . ' been created!</div>');
+
+            redirect('admin/manage');
+        }
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -77,13 +103,49 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function addCoach()
+    {
+        $data['title'] = 'Manage Account';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->form_validation->set_rules('name', 'Name', 'trim|required');
+        $this->form_validation->set_rules(
+            'email',
+            'Email',
+            'trim|required|valid_email|is_unique[user.email]',
+            [
+                'is_unique' => 'This email has already registered!'
+            ]
+        );
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[3]');
+
+        date_default_timezone_set("Asia/Jakarta");
+        if ($this->form_validation->run() == true) {
+            $account = [
+                'name' => htmlspecialchars($this->input->post('name', true)),
+                'email' => htmlspecialchars($this->input->post('email', true)),
+                'image' => 'default.jpg',
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'role_id' => 2,
+                'is_active' => 1,
+                'date_created' => time()
+            ];
+            $this->db->insert('user', $account);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Account name : ' . $account['name'] . ' been created!</div>');
+
+            redirect('admin/manage');
+        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/addcoach', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function delete($id)
     {
-        echo $id;
         $this->db->delete('user', array('id' => $id));
-        // $this->db->delete('athlete', array('id' => $id));
-
-
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account has been deleted!</div>');
         $this->manage();
     }

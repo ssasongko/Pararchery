@@ -5,8 +5,10 @@
     <div class="row">
         <div class="col-lg-12 d-flex justify-content-between mb-3">
             <h1 class="h3 text-gray-800"><?= $title; ?></h1>
-
-            <a href="<?= base_url('admin/addathlete') ?>" class="btn btn-primary">Add New Athlete</a>
+            <div>
+                <a href="<?= base_url('admin/addathlete') ?>" class="btn btn-primary">Add New Athlete</a>
+                <a href="<?= base_url('admin/addcoach') ?>" class="btn btn-primary">Add New Coach</a>
+            </div>
         </div>
 
 
@@ -38,7 +40,7 @@
                                 <td><?= date("d-m-Y, h:i:s", $a['date_created']); ?></td>
                                 <td>
                                     <a href="#" class="badge badge-success">Detail</a>
-                                    <a href="#" class="badge badge-warning">Change Password / Role</a>
+                                    <a href="#" class="badge badge-warning">Change Password</a>
                                     <!-- <a href="<?= base_url('admin/delete'); ?>" data-toggle="modal" data-target="#deleteModal" class="badge badge-danger">Delete</a> -->
                                     <a href="<?= base_url('admin/delete/') . $a['id']; ?>" class="badge badge-danger">Delete</a>
                                 </td>
