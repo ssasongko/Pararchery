@@ -23,17 +23,6 @@ class Admin extends CI_Controller
 
     public function manage()
     {
-        $this->form_validation->set_rules('name', 'Name', 'trim|required');
-        $this->form_validation->set_rules(
-            'email',
-            'Email',
-            'trim|required|valid_email|is_unique[user.email]',
-            [
-                'is_unique' => 'This email has already registered!'
-            ]
-        );
-        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[3]');
-
         $data['title'] = 'Manage Account';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
@@ -147,7 +136,60 @@ class Admin extends CI_Controller
     {
         $this->db->delete('user', array('id' => $id));
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account has been deleted!</div>');
-        $this->manage();
+        redirect('admin/manage');
+    }
+
+    public function changePass($id = 0)
+    {
+        $data['title'] = 'Change Password';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['passID'] = (int) $id;
+
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[3]');
+        if ($this->form_validation->run() == true) {
+            $pass = array(
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+            );
+
+            $this->db->where('id', $data['passID']);
+            $this->db->update('user', $pass);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password has been changed!</div>');
+            redirect('admin/manage');
+        }
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/changepass', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function detail($role_id = 0, $id = 0)
+    {
+        $data['title'] = 'Edit Password';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['d_role'] = (int) $role_id;
+        $data['d_id'] = (int) $id;
+
+        if ($data['d_role'] == 1 || $data['d_role'] == 2) {
+            $sql = "SELECT * FROM `user` WHERE `d_role` = " . $data['d_role'] . " AND `id` = " . $data['d_id'];
+            $data['account'] = $this->db->query($sql)->result_array();
+        } else {
+            $sql = "SELECT * FROM `user`,`athlete` WHERE
+                `user`.`id` = `athlete`.`id_atlet` AND 
+                `user`.`id` = " . $data['d_id'];
+
+            $data['account'] = $this->db->query($sql)->result_array();
+            var_dump($data['account']);
+        }
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/detail', $data);
+        $this->load->view('templates/footer');
     }
 
     public function role()
