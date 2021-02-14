@@ -167,23 +167,50 @@ class Admin extends CI_Controller
 
     public function detail($role_id = 0, $id = 0)
     {
-        $data['title'] = 'Edit Password';
+        $data['title'] = 'Manage Account';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['d_role'] = (int) $role_id;
         $data['d_id'] = (int) $id;
 
         if ($data['d_role'] == 1 || $data['d_role'] == 2) {
-            $sql = "SELECT * FROM `user` WHERE `d_role` = " . $data['d_role'] . " AND `id` = " . $data['d_id'];
+            $sql = "SELECT * FROM `user`,`user_role` 
+            WHERE `user`.`role_id` =  `user_role`.`id_role` AND
+            `user_role`.`id_role` = " . $data['d_role'] . " AND
+            `id` = " . $data['d_id'];
+
             $data['account'] = $this->db->query($sql)->result_array();
         } else {
-            $sql = "SELECT * FROM `user`,`athlete` WHERE
+            $sql = "SELECT * FROM `user`,`user_role`,`athlete` WHERE
+                `user`.`role_id` =  `user_role`.`id_role` AND
                 `user`.`id` = `athlete`.`id_atlet` AND 
                 `user`.`id` = " . $data['d_id'];
 
             $data['account'] = $this->db->query($sql)->result_array();
-            var_dump($data['account']);
         }
 
+        $this->form_validation->set_rules('name', 'Name', 'trim|required');
+
+        if ($this->form_validation->run() == true) {
+            $name = [
+                'name' => htmlspecialchars($this->input->post('name', true))
+            ];
+            $this->db->where('id', $data['d_id']);
+            $this->db->update('user', $name);
+
+            if ($data['d_role'] == 3) {
+                $athlete = [
+                    'birth_date' => htmlspecialchars($this->input->post('date', true)),
+                    'gender' => $this->input->post('gender', true),
+                    'status' => htmlspecialchars($this->input->post('status', true)),
+                    'class' => $this->input->post('classes', true)
+                ];
+
+                $this->db->where('id', $this->input->post('id_atlet', true));
+                $this->db->update('athlete', $athlete);
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account has been updated!</div>');
+                redirect('admin/manage');
+            }
+        }
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
