@@ -15,8 +15,6 @@ class Athlete extends CI_Controller
         $data['title'] = 'Home Athlete';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        // Title
-
         $this->form_validation->set_rules('time', 'Time', 'required');
 
         $time = $this->input->post('time');

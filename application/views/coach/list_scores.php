@@ -9,10 +9,35 @@
     </div>
 
     <div class="row">
+
+
+        <?= $this->session->flashdata('message'); ?>
+
+        <!-- Select Button -->
+        <div class="col-md-3">
+            <form class="user" method="post" action="<?= base_url('coach/listScores/') ?>">
+
+                <!-- Time -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Class</span>
+                    </div>
+                    <select class="custom-select" id="classes" name="classes">
+                        <option selected hidden disabled><?= set_value('classes'); ?></option>
+                        <option value="Barebow">Barebow</option>
+                        <option value="Standard Bow">Standard Bow</option>
+                        <option value="Recurve Bow">Recurve Bow</option>
+                        <option value="Compound Bow">Compound Bow</option>
+                    </select>
+                    <?= form_error('time', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+        </div>
+        <div class="col-md-2 mb-2">
+            <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
         <div class="col-lg-12">
-
-            <?= $this->session->flashdata('message'); ?>
-
             <div class="table-responsive">
                 <table class="table table-hover table-striped" id="dataTable">
                     <thead>
@@ -23,7 +48,7 @@
                             <th scope="col">Time</th>
                             <th scope="col">Location</th>
                             <th scope="col">Distance</th>
-                            <th scope="col">11</th>
+                            <!-- <th scope="col">11</th>
                             <th scope="col">12</th>
                             <th scope="col">13</th>
                             <th scope="col">21</th>
@@ -52,8 +77,9 @@
                             <th scope="col">93</th>
                             <th scope="col">101</th>
                             <th scope="col">102</th>
-                            <th scope="col">103</th>
+                            <th scope="col">103</th> -->
                             <th scope="col">Total</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,8 +90,8 @@
                                 <td><?= $a['name']; ?></td>
                                 <td><?= $a['date_scores']; ?></td>
                                 <td><?= $a['location']; ?></td>
-                                <td><?= $a['distance']; ?></td>
-                                <td><?= $a['11']; ?></td>
+                                <td><?= $a['distance'] . " Meter"; ?></td>
+                                <!-- <td><?= $a['11']; ?></td>
                                 <td><?= $a['12']; ?></td>
                                 <td><?= $a['13']; ?></td>
                                 <td><?= $a['21']; ?></td>
@@ -94,9 +120,11 @@
                                 <td><?= $a['93']; ?></td>
                                 <td><?= $a['101']; ?></td>
                                 <td><?= $a['102']; ?></td>
-                                <td><?= $a['103']; ?></td>
+                                <td><?= $a['103']; ?></td> -->
                                 <td><?= $a['total']; ?></td>
-
+                                <td>
+                                    <a href="<?= base_url('coach/detail_scores/') . $a['id'] ?>" class="badge badge-warning">Detail</a>
+                                </td>
                             </tr>
                             <?php $i++; ?>
                         <?php endforeach; ?>
