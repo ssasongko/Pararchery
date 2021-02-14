@@ -14,6 +14,12 @@ class Admin extends CI_Controller
         $data['title'] = 'Home Admin';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+
+        $data['totalAcount'] = $this->db->query("SELECT * FROM `user`")->num_rows();
+        $data['totalAtlets'] = $this->db->query("SELECT * FROM `athlete` ")->num_rows();
+        $data['totalCoach'] = $this->db->query("SELECT * FROM `user` WHERE `role_id`=2 ")->num_rows();
+        $data['totalAdmin'] = $this->db->query("SELECT * FROM `user` WHERE `role_id`=1 ")->num_rows();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
