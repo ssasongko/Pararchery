@@ -47,37 +47,16 @@
                     <span class="input-group-text">Round 1</span>
                 </div>
 
-                <select class="custom-select" id="ra11" name="ra11" required>
-                    <option value="<?= $athlete[0]['11'] ?>" selected><?= $athlete[0]['11'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra11" name="ra11" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['11'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra12" name="ra12" required>
-                    <option value="<?= $athlete[0]['12'] ?>" selected><?= $athlete[0]['12'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra12" name="ra12" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['12'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra13" name="ra13" required>
-                    <option value="<?= $athlete[0]['13'] ?>" selected><?= $athlete[0]['13'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra13" name="ra13" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['13'] ?></option>
                 </select>
             </div>
 
@@ -86,37 +65,16 @@
                     <span class="input-group-text">Round 2</span>
                 </div>
 
-                <select class="custom-select" id="ra21" name="ra21" required>
-                    <option value="<?= $athlete[0]['21'] ?>" selected><?= $athlete[0]['21'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra21" name="ra21" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['21'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra22" name="ra22" required>
-                    <option value="<?= $athlete[0]['22'] ?>" selected><?= $athlete[0]['22'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra22" name="ra22" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['22'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra23" name="ra23" required>
-                    <option value="<?= $athlete[0]['23'] ?>" selected><?= $athlete[0]['23'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra23" name="ra23" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['23'] ?></option>
                 </select>
             </div>
 
@@ -125,37 +83,16 @@
                     <span class="input-group-text">Round 3</span>
                 </div>
 
-                <select class="custom-select" id="ra31" name="ra31" required>
-                    <option value="<?= $athlete[0]['31'] ?>" selected><?= $athlete[0]['31'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra31" name="ra31" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['31'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra32" name="ra32" required>
-                    <option value="<?= $athlete[0]['32'] ?>" selected><?= $athlete[0]['32'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra32" name="ra32" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['32'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra33" name="ra33" required>
-                    <option value="<?= $athlete[0]['33'] ?>" selected><?= $athlete[0]['33'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra33" name="ra33" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['33'] ?></option>
                 </select>
             </div>
 
@@ -164,37 +101,16 @@
                     <span class="input-group-text">Round 4</span>
                 </div>
 
-                <select class="custom-select" id="ra41" name="ra41" required>
-                    <option value="<?= $athlete[0]['41'] ?>" selected><?= $athlete[0]['41'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra41" name="ra41" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['41'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra42" name="ra42" required>
-                    <option value="<?= $athlete[0]['42'] ?>" selected><?= $athlete[0]['42'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra42" name="ra42" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['42'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra43" name="ra43" required>
-                    <option value="<?= $athlete[0]['43'] ?>" selected><?= $athlete[0]['43'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra43" name="ra43" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['43'] ?></option>
                 </select>
             </div>
 
@@ -203,37 +119,16 @@
                     <span class="input-group-text">Round 5</span>
                 </div>
 
-                <select class="custom-select" id="ra51" name="ra51" required>
-                    <option value="<?= $athlete[0]['51'] ?>" selected><?= $athlete[0]['51'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra51" name="ra51" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['51'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra52" name="ra52" required>
-                    <option value="<?= $athlete[0]['52'] ?>" selected><?= $athlete[0]['52'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra52" name="ra52" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['52'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra53" name="ra53" required>
-                    <option value="<?= $athlete[0]['53'] ?>" selected><?= $athlete[0]['53'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra53" name="ra53" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['53'] ?></option>
                 </select>
             </div>
 
@@ -242,37 +137,16 @@
                     <span class="input-group-text">Round 6</span>
                 </div>
 
-                <select class="custom-select" id="ra61" name="ra61" required>
-                    <option value="<?= $athlete[0]['61'] ?>" selected><?= $athlete[0]['61'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra61" name="ra61" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['61'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra62" name="ra62" required>
-                    <option value="<?= $athlete[0]['62'] ?>" selected><?= $athlete[0]['62'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra62" name="ra62" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['62'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra63" name="ra63" required>
-                    <option value="<?= $athlete[0]['63'] ?>" selected><?= $athlete[0]['63'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra63" name="ra63" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['63'] ?></option>
                 </select>
             </div>
 
@@ -281,37 +155,16 @@
                     <span class="input-group-text">Round 7</span>
                 </div>
 
-                <select class="custom-select" id="ra71" name="ra71" required>
-                    <option value="<?= $athlete[0]['71'] ?>" selected><?= $athlete[0]['71'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra71" name="ra71" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['71'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra72" name="ra72" required>
-                    <option value="<?= $athlete[0]['72'] ?>" selected><?= $athlete[0]['72'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra72" name="ra72" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['72'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra73" name="ra73" required>
-                    <option value="<?= $athlete[0]['73'] ?>" selected><?= $athlete[0]['73'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra73" name="ra73" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['73'] ?></option>
                 </select>
             </div>
 
@@ -320,37 +173,16 @@
                     <span class="input-group-text">Round 8</span>
                 </div>
 
-                <select class="custom-select" id="ra81" name="ra81" required>
-                    <option value="<?= $athlete[0]['81'] ?>" selected><?= $athlete[0]['81'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra81" name="ra81" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['81'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra82" name="ra82" required>
-                    <option value="<?= $athlete[0]['82'] ?>" selected><?= $athlete[0]['82'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra82" name="ra82" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['82'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra83" name="ra83" required>
-                    <option value="<?= $athlete[0]['83'] ?>" selected><?= $athlete[0]['83'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra83" name="ra83" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['83'] ?></option>
                 </select>
             </div>
 
@@ -359,37 +191,16 @@
                     <span class="input-group-text">Round 9</span>
                 </div>
 
-                <select class="custom-select" id="ra91" name="ra91" required>
-                    <option value="<?= $athlete[0]['91'] ?>" selected><?= $athlete[0]['91'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra91" name="ra91" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['91'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra92" name="ra92" required>
-                    <option value="<?= $athlete[0]['92'] ?>" selected><?= $athlete[0]['92'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra92" name="ra92" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['92'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra93" name="ra93" required>
-                    <option value="<?= $athlete[0]['93'] ?>" selected><?= $athlete[0]['93'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra93" name="ra93" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['93'] ?></option>
                 </select>
             </div>
 
@@ -398,37 +209,16 @@
                     <span class="input-group-text">Round 10</span>
                 </div>
 
-                <select class="custom-select" id="ra101" name="ra101" required>
-                    <option value="<?= $athlete[0]['101'] ?>" selected><?= $athlete[0]['101'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra101" name="ra101" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['101'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra102" name="ra102" required>
-                    <option value="<?= $athlete[0]['102'] ?>" selected><?= $athlete[0]['102'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra102" name="ra102" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['102'] ?></option>
                 </select>
 
-                <select class="custom-select" id="ra103" name="ra103" required>
-                    <option value="<?= $athlete[0]['103'] ?>" selected><?= $athlete[0]['103'] ?></option>
-                    <option value="10">10</option>
-                    <option value="9">9</option>
-                    <option value="8">8</option>
-                    <option value="7">7</option>
-                    <option value="6">6</option>
-                    <option value="5">5</option>
-                    <option value="0">Miss</option>
+                <select class="custom-select" id="ra103" name="ra103" readonly>
+                    <option selected disabled hidden><?= $athlete[0]['103'] ?></option>
                 </select>
             </div>
         </div>

@@ -31,7 +31,7 @@
                             <th scope="col">Class</th>
                             <!--     <th scope="col">Best Scores</th>
                         <th scope="col">Score Date</th> -->
-                            <th scope="col">Action</th>
+                            <!-- <th scope="col">Action</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -50,7 +50,7 @@
                                 <td><?= $a['class']; ?></td>
                                 <!-- <td></td>
                         <td></td> -->
-                                <td><a href="#" class="badge badge-warning" data-toggle="modal" data-target="#myModal">Detail</a>
+                                <!-- <td><a href="#" class="badge badge-warning" data-toggle="modal" data-target="#myModal">Detail</a> -->
                                 </td>
                             </tr>
                             <?php $i++; ?>
