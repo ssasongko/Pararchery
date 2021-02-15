@@ -16,7 +16,7 @@
                         <span class="input-group-text">Time</span>
                     </div>
                     <select class="custom-select" id="time" name="time">
-                        <option value="" selected hidden disabled><?= (set_value('time')); ?></option>
+                        <option selected hidden><?= (set_value('time')); ?></option>
                         <option value="All Time">All Time</option>
                         <option value="<?= date('Y') ?>">Year - <?= date('Y') ?></option>
                         <option value="<?= date('m') ?>">Month - <?= date('F') ?></option>
@@ -25,28 +25,35 @@
                 </div>
         </div>
 
-        <!-- <div class="col-md-3"> 
-            
+        <div class="col-md-3">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">Class</span>
+                    <span class="input-group-text">Class</span>
                 </div>
-                <select class="custom-select" id="archeryClass" name="archeryClass" required>
-                    <option value="" selected>Barebow</option>
+                <select class="custom-select" id="classes" name="classes">
+                    <?php foreach ($classes as $c) : ?>
+                        <option selected hidden><?= (set_value('classes')); ?></option>
+                        <option value="<?= $c['class']; ?>"><?= $c['class']; ?></option>
+                    <?php endforeach; ?>
                 </select>
+                <?= form_error('classes', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
-        </div>    
-        <div class="col-md-3">     
-            
+        </div>
+        <div class="col-md-3">
+
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">Distance</span>
+                    <span class="input-group-text">Distance</span>
                 </div>
-                <select class="custom-select" id="archeryClass" name="archeryClass" required>
-                    <option value="" selected>70</option>
+                <select class="custom-select" id="distances" name="distances">
+                    <?php foreach ($distances as $d) : ?>
+                        <option selected hidden><?= (set_value('distances')); ?></option>
+                        <option value="<?= $d['distance']; ?>"><?= $d['distance']; ?></option>
+                    <?php endforeach; ?>
                 </select>
+                <?= form_error('distances', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
-        </div> -->
+        </div>
         <div class="col-md-2 mb-2">
             <button class="btn btn-primary">Submit</button>
             </form>

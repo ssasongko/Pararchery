@@ -11,36 +11,55 @@ class Athlete extends CI_Controller
 
     public function index()
     {
-        $time = $this->input->post('time');
         $data['title'] = 'Home Athlete';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $this->form_validation->set_rules('time', 'Time', 'required');
+        $this->form_validation->set_rules('classes', 'Classes', 'required');
+        $this->form_validation->set_rules('distances', 'Distances', 'required');
+
+        // ambil data untuk select option
+        $data['classes'] = $this->db->query("SELECT DISTINCT `class` FROM `athlete`")->result_array();
+        $data['distances'] = $this->db->query("SELECT DISTINCT `distance` FROM `athlete_scores` ORDER BY `distance` DESC")->result_array();
 
         $time = $this->input->post('time');
+        $classes = $this->input->post('classes');
+        $distances = (int)$this->input->post('distances');
+
         $data['time'] = $time;
         if ($this->form_validation->run() == true) {
             if ($time == "All Time") {
                 $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
                     WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
-                    `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
+                    `athlete`.`id_atlet` = `athlete_scores`.`id_athelete` AND
+                    `class` = '" . $classes . "' AND
+                    `distance` = '" . $distances . "'
                      ORDER BY `athlete_scores`.`total` DESC";
                 $data['athlete'] = $this->db->query($sql)->result_array();
             } else if ($time == date('Y')) {
                 $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
                     WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
                     `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
-                    AND `athlete_scores`.`date_scores` LIKE '%" . $time . "%'
+                    AND `athlete_scores`.`date_scores` LIKE '%" . $time . "%' AND
+                    `class` = '" . $classes . "' AND
+                    `distance` = '" . $distances . "'
                     ORDER BY `athlete_scores`.`total` DESC";
                 $data['athlete'] = $this->db->query($sql)->result_array();
             } else {
                 $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
                     WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
                     `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
-                    AND `athlete_scores`.`date_scores` LIKE '%-" . $time . "-%'
+                    AND `athlete_scores`.`date_scores` LIKE '%-" . $time . "-%' AND
+                    `class` = '" . $classes . "' AND
+                    `distance` = '" . $distances . "'
                     ORDER BY `athlete_scores`.`total` DESC";
                 $data['time'] = date("F Y", mktime(0, 0, 0, $time, 10));
                 $data['athlete'] = $this->db->query($sql)->result_array();
+            }
+
+            if (empty($data['athlete'])) {
+                $empty = "Data Kosong";
+                $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">' . $empty . '</div>');
             }
         } else {
             // no data
@@ -49,7 +68,7 @@ class Athlete extends CI_Controller
             $data['athlete'] = $this->db->query($sql)->result_array();
         }
 
-        // Logic to Get Values from DB
+
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
