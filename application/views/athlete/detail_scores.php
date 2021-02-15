@@ -36,6 +36,10 @@
                     <label class="text" for="distance">Distance</label>
                     <input size="50" type="text" class="form-control" id="distance" name="distance" value="<?= $athlete[0]['distance'] . ' Meter' ?>" disabled>
                 </div>
+                <div class="form-group ">
+                    <label class="text" for="distance">Total Scores</label>
+                    <input size="50" type="text" class="form-control" id="distance" name="distance" value="<?= $athlete[0]['total'] . ' Meter' ?>" disabled>
+                </div>
             </form>
 
         </div>

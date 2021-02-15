@@ -13,29 +13,28 @@
 
     <div class="row">
         <div class="col-lg-6" style="color: black">
-            <form class="user" method="post" action="">
+            <h1 class="h4 mb-4 text-center">Information</h1>
+            <div class="form-group">
+                <label>Date Scoring : </label>
+                <input type="text" class="form-control input-sm" value="<?= $athlete[0]['date_scores'] ?>" disabled>
+            </div>
 
-                <h1 class="h4 mb-4 text-center">Information</h1>
-
-                <!-- Hidden input -->
-                <!-- <input type="text" class="form-control form-control-user" id="id_athelete" name="id_athelete" value="<?= $myId; ?>" hidden> -->
-                <div class="form-group">
-                    <label>Tanggal</label>
-                    <input type="text" class="form-control input-sm" id="date" name="date" value="<?= $athlete[0]['date_scores'] ?>" disabled>
-                </div>
-
-                <div class="form-group">
-                    <label>Nama</label>
-                    <input class="form-control input-sm" type="text" value="<?= $athlete[0]['name'] ?>" disabled>
-                </div>
-                <div class="form-group ">
-                    <label for="location">Location</label>
-                    <input type="text" class="form-control" id="location" name="location" value="<?= $athlete[0]['location'] ?>" disabled>
-                </div>
-                <div class="form-group ">
-                    <label class="text" for="distance">Distance</label>
-                    <input size="50" type="text" class="form-control" id="distance" name="distance" value="<?= $athlete[0]['distance'] . ' Meter' ?>" disabled>
-                </div>
+            <div class="form-group">
+                <label>Nama</label>
+                <input class="form-control input-sm" type="text" value="<?= $athlete[0]['name'] ?>" disabled>
+            </div>
+            <div class="form-group ">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" value="<?= $athlete[0]['location'] ?>" disabled>
+            </div>
+            <div class="form-group ">
+                <label class="text" for="distance">Distance</label>
+                <input type="text" class="form-control" value="<?= $athlete[0]['distance'] . ' Meter' ?>" disabled>
+            </div>
+            <div class="form-group ">
+                <label class="text" for="Total">Total</label>
+                <input class="form-control" type="text" value="<?= $athlete[0]['total'] ?>" disabled>
+            </div>
             </form>
 
         </div>

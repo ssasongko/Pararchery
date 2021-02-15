@@ -118,7 +118,7 @@ class Athlete extends CI_Controller
 
     public function detail_scores_lead($id_detail)
     {
-        $data['title'] = 'Detail Scores';
+        $data['title'] = 'Home Athlete';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 

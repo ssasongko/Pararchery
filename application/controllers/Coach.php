@@ -21,6 +21,42 @@ class Coach extends CI_Controller
         $data['totalUsersREC'] = $this->db->query("SELECT * FROM `athlete` WHERE class='Recurve Bow'")->num_rows();
         $data['totalUsersCOM'] = $this->db->query("SELECT * FROM `athlete` WHERE class='Compound Bow'")->num_rows();
 
+        //bb
+        $sql = "SELECT * FROM user,athlete, athlete_scores WHERE 
+        `user`.`id` = `athlete`.`id_atlet` AND 
+        `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND
+        `athlete`.`class` = 'Barebow' AND
+        `athlete_scores`.`distance` = 50 
+        ORDER BY `total` DESC LIMIT 1";
+        $data['bestBAR'] = $this->db->query($sql)->result_array();
+
+        //std
+        $sql = "SELECT * FROM user,athlete, athlete_scores WHERE 
+        `user`.`id` = `athlete`.`id_atlet` AND 
+        `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND
+        `athlete`.`class` = 'Standard Bow' AND
+        `athlete_scores`.`distance` = 30 
+        ORDER BY `total` DESC LIMIT 1";
+        $data['bestSTD'] = $this->db->query($sql)->result_array();
+
+        //rec
+        $sql = "SELECT * FROM user,athlete, athlete_scores WHERE 
+        `user`.`id` = `athlete`.`id_atlet` AND 
+        `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND
+        `athlete`.`class` = 'Recurve Bow' AND
+        `athlete_scores`.`distance` = 70
+        ORDER BY `total` DESC LIMIT 1";
+        $data['bestREC'] = $this->db->query($sql)->result_array();
+
+        //rec
+        $sql = "SELECT * FROM user,athlete, athlete_scores WHERE 
+        `user`.`id` = `athlete`.`id_atlet` AND 
+        `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND
+        `athlete`.`class` = 'Compound Bow' AND
+        `athlete_scores`.`distance` = 50
+        ORDER BY `total` DESC LIMIT 1";
+        $data['bestCOM'] = $this->db->query($sql)->result_array();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

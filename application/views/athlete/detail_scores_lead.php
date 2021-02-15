@@ -20,12 +20,12 @@
                 <!-- Hidden input -->
                 <!-- <input type="text" class="form-control form-control-user" id="id_athelete" name="id_athelete" value="<?= $myId; ?>" hidden> -->
                 <div class="form-group">
-                    <label>Tanggal</label>
+                    <label>Date Scores</label>
                     <input type="text" class="form-control input-sm" id="date" name="date" value="<?= $athlete[0]['date_scores'] ?>" disabled>
                 </div>
 
                 <div class="form-group">
-                    <label>Nama</label>
+                    <label>Name</label>
                     <input class="form-control input-sm" type="text" value="<?= $athlete[0]['name'] ?>" disabled>
                 </div>
                 <div class="form-group ">
@@ -35,6 +35,10 @@
                 <div class="form-group ">
                     <label class="text" for="distance">Distance</label>
                     <input size="50" type="text" class="form-control" id="distance" name="distance" value="<?= $athlete[0]['distance'] . ' Meter' ?>" disabled>
+                </div>
+                <div class="form-group ">
+                    <label class="text" for="Total">Total Scores</label>
+                    <input class="form-control" type="text" value="<?= $athlete[0]['total'] ?>" disabled>
                 </div>
             </form>
 
