@@ -41,7 +41,7 @@
                                 <td><?= $a['total']; ?></td>
                                 <td><?= $a['distance']; ?> Meter</td>
                                 <td>
-                                    <a href="<?= base_url('athlete/detail_scores_lead/') . $a['id'] ?>" class="badge badge-warning">Detail</a>
+                                    <a href="<?= base_url('athlete/detail_scores/') . $a['id'] ?>" class="badge badge-warning">Detail</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>
