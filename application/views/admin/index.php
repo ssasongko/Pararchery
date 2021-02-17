@@ -8,8 +8,6 @@
         </div>
     </div>
 
-
-
     <div class="row">
         <div class="col-lg-12">
             <?= $this->session->flashdata('message'); ?>
@@ -21,7 +19,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-white text-uppercase mb-1">Total Acount</div>
-                            <div class="h5 mb-0 font-weight-bold text-white"><?= ($totalAcount); ?> Persons</div>
+                            <div class="h5 mb-0 font-weight-bold text-white"><?= ($totalUsers); ?> Persons</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -36,7 +34,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Atlets</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= ($totalAtlets); ?> Persons</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= ($totalAthletes); ?> Persons</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-users fa-2x text-gray-300"></i>
