@@ -11,52 +11,23 @@ class Coach extends CI_Controller
 
     public function index()
     {
+        // user and title
         $data['title'] = 'Home Coach';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        // load model
+        $this->load->model('Coach_model', 'coach');
+        $data['totalAthletes'] = $this->coach->getTotalAthletes();
+        $data['totalUsersBAR'] = $this->coach->getTotalUsersBAR();
+        $data['totalUsersSTD'] = $this->coach->getTotalUsersSTD();
+        $data['totalUsersREC'] = $this->coach->getTotalUsersREC();
+        $data['totalUsersCOM'] = $this->coach->getTotalUsersCOM();
+        $data['bestBAR'] = $this->coach->getBestBAR();
+        $data['bestSTD'] = $this->coach->getBestSTD();
+        $data['bestREC'] = $this->coach->getBestREC();
+        $data['bestCOM'] = $this->coach->getBestCOM();
 
-        $data['totalAthletes'] = $this->db->query("SELECT * FROM `athlete`")->num_rows();
-        $data['totalUsersBAR'] = $this->db->query("SELECT * FROM `athlete` WHERE class='Barebow'")->num_rows();
-        $data['totalUsersSTD'] = $this->db->query("SELECT * FROM `athlete` WHERE class='Standard Bow' ")->num_rows();
-        $data['totalUsersREC'] = $this->db->query("SELECT * FROM `athlete` WHERE class='Recurve Bow'")->num_rows();
-        $data['totalUsersCOM'] = $this->db->query("SELECT * FROM `athlete` WHERE class='Compound Bow'")->num_rows();
-
-        //bb
-        $sql = "SELECT * FROM user,athlete, athlete_scores WHERE 
-        `user`.`id` = `athlete`.`id_atlet` AND 
-        `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND
-        `athlete`.`class` = 'Barebow' AND
-        `athlete_scores`.`distance` = 50 
-        ORDER BY `total` DESC LIMIT 1";
-        $data['bestBAR'] = $this->db->query($sql)->result_array();
-
-        //std
-        $sql = "SELECT * FROM user,athlete, athlete_scores WHERE 
-        `user`.`id` = `athlete`.`id_atlet` AND 
-        `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND
-        `athlete`.`class` = 'Standard Bow' AND
-        `athlete_scores`.`distance` = 30 
-        ORDER BY `total` DESC LIMIT 1";
-        $data['bestSTD'] = $this->db->query($sql)->result_array();
-
-        //rec
-        $sql = "SELECT * FROM user,athlete, athlete_scores WHERE 
-        `user`.`id` = `athlete`.`id_atlet` AND 
-        `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND
-        `athlete`.`class` = 'Recurve Bow' AND
-        `athlete_scores`.`distance` = 70
-        ORDER BY `total` DESC LIMIT 1";
-        $data['bestREC'] = $this->db->query($sql)->result_array();
-
-        //rec
-        $sql = "SELECT * FROM user,athlete, athlete_scores WHERE 
-        `user`.`id` = `athlete`.`id_atlet` AND 
-        `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND
-        `athlete`.`class` = 'Compound Bow' AND
-        `athlete_scores`.`distance` = 50
-        ORDER BY `total` DESC LIMIT 1";
-        $data['bestCOM'] = $this->db->query($sql)->result_array();
-
+        // Load tampil
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -66,14 +37,17 @@ class Coach extends CI_Controller
 
     public function listArchers()
     {
+        // user and titles
         $data['title'] = 'List Archers';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT * FROM user, athlete WHERE `user`.id = `athlete`.`id_atlet` ORDER BY class,name ASC";
-        $data['athlete'] = $this->db->query($sql)->result_array();
+        // load model
+        $this->load->model('Coach_model', 'coach');
+        $data['athlete'] = $this->coach->listAthletes();
+
         $data['yearNow'] = date('Y');
 
-
+        // load tampilan
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -81,50 +55,28 @@ class Coach extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    // made by irfan
     public function listScores()
     {
+        // user and titles
         $data['title'] = 'Lists Scores';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-
+        // load model
+        $this->load->model('Coach_model', 'coach');
 
         $this->form_validation->set_rules('classes', 'Classes', 'required');
 
         $classes = $this->input->post('classes');
-
         $data['classes'] = $classes;
+        $data['yearNow'] = date('Y');
 
         if ($this->form_validation->run() == true) {
-            if ($classes == "Barebow") {
-                $sql = "SELECT * FROM user,athlete, athlete_scores WHERE `user`.id = `athlete`.`id_atlet` AND 
-                `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND `athlete`.`class` = 'Barebow' ORDER BY total DESC";
-                $data['athlete_scores'] = $this->db->query($sql)->result_array();
-                $data['yearNow'] = date('Y');
-            } else if ($classes == "Standard Bow") {
-                $sql = "SELECT * FROM user,athlete, athlete_scores WHERE `user`.id = `athlete`.`id_atlet` AND 
-                `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND `athlete`.`class` = 'Standard Bow' ORDER BY total DESC ";
-                $data['athlete_scores'] = $this->db->query($sql)->result_array();
-                $data['yearNow'] = date('Y');
-            } else if ($classes == "Recurve Bow") {
-                $sql = "SELECT * FROM user,athlete, athlete_scores WHERE `user`.id = `athlete`.`id_atlet` AND 
-                `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND `athlete`.`class` = 'Recurve Bow' ORDER BY total DESC";
-                $data['athlete_scores'] = $this->db->query($sql)->result_array();
-                $data['yearNow'] = date('Y');
-            } else {
-                $sql = "SELECT * FROM user,athlete, athlete_scores WHERE `user`.id = `athlete`.`id_atlet` AND 
-                `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND `athlete`.`class` = 'Compound Bow' ORDER BY total DESC";
-                $data['athlete_scores'] = $this->db->query($sql)->result_array();
-                $data['yearNow'] = date('Y');
-            }
+            $data['athlete_scores'] = $this->coach->listScores($classes);
         } else {
-            // no data
-            $sql = "SELECT * FROM user,athlete, athlete_scores WHERE `user`.`id` = `athlete`.`id_atlet` AND
-        `athlete`.`id_atlet` =`athlete_scores`.`id_athelete` AND `user`.`id` = 0";
-            $data['athlete_scores'] = $this->db->query($sql)->result_array();
-            $data['yearNow'] = date('Y');
+            $data['athlete_scores'] = $this->coach->nullData();
         }
 
+        // load tampilan
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -134,18 +86,15 @@ class Coach extends CI_Controller
 
     public function detail_scores($id_detail)
     {
+        // user and titles
         $data['title'] = 'Lists Scores';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-            WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
-            `athlete`.`id_atlet` = `athlete_scores`.`id_athelete` AND
-            `athlete_scores`.`id` = " . $id_detail . "
-             ORDER BY `athlete_scores`.`total` DESC";
+        // load model
+        $this->load->model('Coach_model', 'coach');
+        $data['athlete'] = $this->coach->detailScore($id_detail);
 
-        $data['athlete'] = $this->db->query($sql)->result_array();
-        // var_dump($data['athlete']);
-
+        // load tampilan
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
