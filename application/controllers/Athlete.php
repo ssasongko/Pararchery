@@ -11,65 +11,44 @@ class Athlete extends CI_Controller
 
     public function index()
     {
+        // user and title
         $data['title'] = 'Home Athlete';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        // buat sebuah validasi
         $this->form_validation->set_rules('time', 'Time', 'required');
         $this->form_validation->set_rules('classes', 'Classes', 'required');
         $this->form_validation->set_rules('distances', 'Distances', 'required');
 
         // ambil data untuk select option
-        $data['classes'] = $this->db->query("SELECT DISTINCT `class` FROM `athlete`")->result_array();
-        $data['distances'] = $this->db->query("SELECT DISTINCT `distance` FROM `athlete_scores` ORDER BY `distance` DESC")->result_array();
+        $this->load->model('Athlete_model', 'athlete');
+        $data['classes'] = $this->athlete->getArcheryClasses();
+        $data['distances'] = $this->athlete->getDistances();
 
         $time = $this->input->post('time');
         $classes = $this->input->post('classes');
         $distances = (int)$this->input->post('distances');
 
+        // jika bulan maka tampilkan nama bulan
+        if ($time == date('m')) {
+            $data['time'] = date("F Y", mktime(0, 0, 0, $time, 10));
+        }
         $data['time'] = $time;
+
+        // jika sukses lanjutkan
         if ($this->form_validation->run() == true) {
-            if ($time == "All Time") {
-                $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-                    WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
-                    `athlete`.`id_atlet` = `athlete_scores`.`id_athelete` AND
-                    `class` = '" . $classes . "' AND
-                    `distance` = '" . $distances . "'
-                     ORDER BY `athlete_scores`.`total` DESC";
-                $data['athlete'] = $this->db->query($sql)->result_array();
-            } else if ($time == date('Y')) {
-                $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-                    WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
-                    `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
-                    AND `athlete_scores`.`date_scores` LIKE '%" . $time . "%' AND
-                    `class` = '" . $classes . "' AND
-                    `distance` = '" . $distances . "'
-                    ORDER BY `athlete_scores`.`total` DESC";
-                $data['athlete'] = $this->db->query($sql)->result_array();
-            } else {
-                $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-                    WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
-                    `athlete`.`id_atlet` = `athlete_scores`.`id_athelete`
-                    AND `athlete_scores`.`date_scores` LIKE '%-" . $time . "-%' AND
-                    `class` = '" . $classes . "' AND
-                    `distance` = '" . $distances . "'
-                    ORDER BY `athlete_scores`.`total` DESC";
-                $data['time'] = date("F Y", mktime(0, 0, 0, $time, 10));
-                $data['athlete'] = $this->db->query($sql)->result_array();
-            }
+            $this->load->model('Athlete_model', 'athlete');
+            $data['athlete'] = $this->athlete->getLeaderboards($time, $classes, $distances);
 
             if (empty($data['athlete'])) {
                 $empty = "Data Kosong";
                 $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">' . $empty . '</div>');
             }
         } else {
-            // no data
-            $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-                    WHERE `user`.`id` = 0";
-            $data['athlete'] = $this->db->query($sql)->result_array();
+            $data['athlete'] = $this->athlete->getNullData();
         }
 
-
-
+        // load
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -79,16 +58,15 @@ class Athlete extends CI_Controller
 
     public function myscores()
     {
+        // user and titles
         $data['title'] = 'My Scores';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-            WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
-            `athlete`.`id_atlet` = `athlete_scores`.`id_athelete` AND
-            `user`.`id` = " . $this->session->userdata('id') . " ORDER BY `athlete_scores`.`total` DESC";
+        // load model
+        $this->load->model('Athlete_model', 'athlete');
+        $data['athlete'] = $this->athlete->getMyScores($this->session->userdata('id'));
 
-        $data['athlete'] = $this->db->query($sql)->result_array();
-
+        // load tampilan
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -98,21 +76,20 @@ class Athlete extends CI_Controller
 
     public function detail_scores($id_detail)
     {
+        // user and titles
         $data['title'] = 'My Scores';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-            WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
-            `athlete`.`id_atlet` = `athlete_scores`.`id_athelete` AND
-            `athlete_scores`.`id` = " . $id_detail . " AND
-            `user`.`id` = " . $this->session->userdata('id') . " ORDER BY `athlete_scores`.`total` DESC";
+        // load model
+        $this->load->model('Athlete_model', 'athlete');
+        $data['athlete'] = $this->athlete->getMyScores($this->session->userdata('id'), $id_detail);
 
-        $data['athlete'] = $this->db->query($sql)->result_array();
 
+        // form validation
         $this->form_validation->set_rules('location', 'Location', 'required');
         $this->form_validation->set_rules('distance', 'Distance', 'required');
 
-
+        // form lanjut
         if ($this->form_validation->run() == true) {
             $ra11 = $this->input->post('ra11');
             $ra12 = $this->input->post('ra12');
@@ -196,7 +173,7 @@ class Athlete extends CI_Controller
             redirect('Athlete/myscores');
         }
 
-
+        // load tampilan
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -206,15 +183,13 @@ class Athlete extends CI_Controller
 
     public function detail_scores_lead($id_detail)
     {
+        // user and titles
         $data['title'] = 'Home Athlete';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT * FROM `user`, `athlete`, `athlete_scores` 
-            WHERE `user`.`id` = `athlete_scores`.`id_athelete` AND 
-            `athlete`.`id_atlet` = `athlete_scores`.`id_athelete` AND
-            `athlete_scores`.`id` = " . $id_detail . " ORDER BY `athlete_scores`.`total` DESC";
-
-        $data['athlete'] = $this->db->query($sql)->result_array();
+        // load model
+        $this->load->model('Athlete_model', 'athlete');
+        $data['athlete'] = $this->athlete->getDetailScores($id_detail);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -226,10 +201,12 @@ class Athlete extends CI_Controller
 
     public function goscore()
     {
+        // user and title
         $data['title'] = 'Go Scoring!';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['myId'] = $this->session->userdata('id');
 
+        // load tampilan
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -237,28 +214,18 @@ class Athlete extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function leaderboards()
-    {
-        $data['title'] = 'Leaderboards';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['myId'] = $this->session->userdata('id');
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('athlete/lead', $data);
-        $this->load->view('templates/footer');
-    }
-
     public function savescore()
     {
+        // user and titles
         $data['title'] = 'Go Scoring!';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['myId'] = $this->session->userdata('id');
 
+        // form
         $this->form_validation->set_rules('location', 'Location', 'required');
         $this->form_validation->set_rules('distance', 'Distance', 'required');
 
+        // form validation condition
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Go Scoring!';
             $this->load->view('templates/header', $data);
