@@ -1,0 +1,371 @@
+@import url('../css/fonts.css');
+
+html,
+body {
+    margin: 0%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+:root {
+
+    /* Them font-color */
+    --text-white: #ffffff;
+    --text-black: #000000;
+    --text-gray: #9B9B9B;
+    --text-red: #DF0505;
+    --white: #ffffff;
+    --green: #74b49b;
+
+    /* Theme font-family */
+    --Open_Sans_Bold: 'Open_Sans_Bold', cursive;
+    --Open_Sans_SemiBold: 'Open_Sans_SemiBold', cursive;
+    --Open_Sans_Regular: 'Open_Sans_Regular', cursive;
+    --Open_Sans_Light: 'Open_Sans_Light', cursive;
+    --Noto_Sans_Regular: 'Noto_Sans_Regular', cursive;
+    --Noto_Sans_Bold: 'Noto_Sans_Bold', cursive;
+}
+
+/* Global Classes */
+
+a {
+    text-decoration: none;
+    color: var(--text-white);
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h1 {
+    font-family: var(--Open_Sans_Bold);
+    font-size: 60px;
+    animation: type 5s;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@keyframes type {
+    0% {
+        width: 0ch;
+    }
+
+    100% {
+        width: 35ch;
+    }
+}
+
+h2 {
+    font-family: var(--Open_Sans_Bold);
+    font-size: 70px;
+    color: var(--white);
+}
+
+
+h3 {
+    font-family: var(--Noto_Sans_Regular);
+    font-size: 20px;
+    animation: textup 10s linear infinite;
+    transform: translateX(5px);
+}
+
+@keyframes textup {
+    10% {
+        transform: translateX(15px);
+    }
+
+    100% {
+        transform: translateX(20px);
+    }
+}
+
+h4 {
+    font-family: var(--Open_Sans_Regular);
+    font-size: 20px;
+    font-weight: 375;
+    color: var(--text-white);
+}
+
+/* Global Classes */
+
+
+/* navbar */
+
+.nav {
+    background: var(--text-black);
+    padding: 0 2rem;
+    min-height: 10vh;
+    overflow: hidden;
+    transition: height 1s ease-in-out;
+}
+
+.nav .nav-menu {
+    justify-content: space-between;
+}
+
+.nav .toggle-collapse {
+    position: absolute;
+    top: 0%;
+    width: 90%;
+    cursor: pointer;
+    display: none;
+}
+
+.nav .toggle-collapse .toggle-icons {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1.7rem 0;
+}
+
+.collapse {
+    height: 25rem;
+}
+
+.nav .toggle-collapse .toggle-icons i {
+    font-size: 1.4rem;
+    color: var(--white);
+}
+
+.nav .nav-items {
+    display: flex;
+    margin: 0;
+    font-family: var(--Open_Sans_Bold)
+}
+
+.nav .nav-items .nav-link {
+    padding: 1.6rem 1rem;
+    font-size: 1.1rem;
+    font-family: var(--Open_Sans_Bold);
+    position: relative;
+}
+
+.nav .nav-items .nav-link:hover {
+    background-color: #74b49b;
+}
+
+.nav .nav-brand a {
+    font-size: 30px;
+    padding: 1rem 0;
+    display: block;
+    font-family: var(--Open_Sans_Bold);
+}
+
+
+/* navbar */
+
+/* Main Content */
+
+/* Site Title */
+main .site-title {
+    background-size: cover;
+    height: 600px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+main .site-title .site-background .title {
+    padding-top: 10rem;
+    text-align: right;
+    line-height: normal;
+    margin-right: 50px;
+    letter-spacing: 10px;
+    color: var(--text-white);
+}
+
+
+main .site-title .site-background .subtitle {
+    padding-top: 3rem;
+    text-align: right;
+    color: var(--text-white);
+    line-height: normal;
+    margin-right: 50px;
+    letter-spacing: 10px;
+}
+
+main .sign-up {
+    height: 670px;
+    display: flex;
+    align-items: center;
+    min-height: 30vh;
+    background: -webkit-linear-gradient(-45deg, #252525 50%, #6930C3 50%);
+    background: -o-linear-gradient(65deg, #252525 50%, #6930C3 50%);
+    background: -moz-linear-gradient(45deg, #252525 50%, #6930C3 50%);
+    background: linear-gradient(65deg, #252525 50%, #6930C3 50%);
+}
+
+main .sign-up .menu .coach {
+    margin-left: 8rem;
+    color: #252525;
+    -webkit-text-stroke: 1px #474d4d;
+}
+
+main .sign-up .menu .coach::before {
+    content: attr(data-text-1);
+    position: absolute;
+    top: 30;
+    left: 10;
+    width: 0;
+    height: 15%;
+    color: #64dfdf;
+    -webkit-text-stroke: 0px #474d4d;
+    border-right: 2px solid #64dfdf;
+    overflow: hidden;
+    animation: animate1 6s linear infinite;
+}
+
+@keyframes animate1 {
+
+    0%,
+    10%,
+    100% {
+        width: 0;
+    }
+
+    30% {
+        width: 10%;
+    }
+
+    70%,
+    90% {
+        width: 28%;
+    }
+
+}
+
+main .sign-up .menu .trainee {
+    margin-left: 53rem;
+    color: #6930C3;
+    -webkit-text-stroke: 1px #5922b1;
+}
+
+main .sign-up .menu .trainee::before {
+    content: attr(data-text-2);
+    position: absolute;
+    top: 30;
+    right: 10;
+    width: 0;
+    height: 15%;
+    color: #ffe227;
+    -webkit-text-stroke: 0px #5922b1;
+    border-right: 2px solid #ffe227;
+    overflow: hidden;
+    animation: animate2 6s linear infinite;
+}
+
+@keyframes animate2 {
+
+    0%,
+    10%,
+    100% {
+        width: 0;
+    }
+
+    30% {
+        width: 10%;
+    }
+
+    70%,
+    90% {
+        width: 30%;
+    }
+
+}
+
+main .sign-up .menu .coach_subtitle {
+    margin-left: 2rem;
+}
+
+.coach_btn {
+    font-family: var(--Open_Sans_Regular);
+    font-weight: 375;
+    font-size: 20px;
+    background-color: #64dfdf;
+    color: #000000;
+    text-decoration: none;
+    display: inline-block;
+    padding: 6px 12px;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-left: 200px;
+    margin-bottom: 23px;
+    position: absolute;
+    animation: appear 5s;
+}
+
+@keyframes appear {
+    from {
+        bottom: 0px;
+    }
+
+    to {
+        bottom: 200px;
+    }
+}
+
+a .coach_btn:hover {
+    background-color: #a7d129;
+}
+
+main .sign-up .menu .trainee_subtitle {
+    margin-left: 45rem;
+}
+
+.trainee_btn {
+    font-family: var(--Open_Sans_Regular);
+    font-weight: 375;
+    font-size: 20px;
+    background-color: #64dfdf;
+    color: #000000;
+    text-decoration: none;
+    display: inline-block;
+    padding: 6px 12px;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-left: 925px;
+    margin-top: 120px;
+    position: fixed;
+    animation: appear2 4.5s;
+}
+
+@keyframes appear2 {
+    from {
+        top: 0px;
+    }
+
+    to {
+        top: 83px;
+    }
+}
+
+a .trainee_btn:hover {
+    background-color: #fadcaa;
+}
+
+/* Site Title */
+
+/* Main Content */
+
+/* viewport less then or equal to 750px */
+
+@media only screen and (max-width: 750px) {
+
+    .nav .nav-menu,
+    .nav .nav-items {
+        flex-direction: column;
+
+    }
+
+    .nav .toggle-collapse {
+        display: initial;
+    }
+}
+
+/* viewport less then or equal to 750px */

@@ -1,0 +1,27 @@
+
+/* OPEN SANS FONTS */
+@font-face{
+    font-family: Open_Sans_Bold;
+    src: url(../fonts/Open_Sans/OpenSans-Bold.ttf);
+}   
+
+@font-face{
+    font-family: Open_Sans_SemiBold;
+    src: url(../fonts/Open_Sans/OpenSans-SemiBold.ttf);
+}   
+
+@font-face{
+    font-family: Open_Sans_Regular;
+    src: url(../fonts/Open_Sans/OpenSans-Regular.ttf);
+}   
+
+/* Noto Sans */
+@font-face{
+    font-family: Noto_Sans_Regular;
+    src: url(../fonts/Noto_Sans/NotoSans-Regular.ttf);
+}   
+
+@font-face{
+    font-family: Noto_Sans_Bold;
+    src: url(../fonts/Noto_Sans/NotoSans-Bold.ttf);
+}   

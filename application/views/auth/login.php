@@ -32,6 +32,9 @@
                                         Login
                                     </button>
                                 </form>
+                                <div class="text-center">
+                                    <a class="small text-danger" href="<?= base_url('auth/landing'); ?>">Back to Landing</a>
+                                </div>
                                 <!-- <hr> -->
                                 <!--  <div class="text-center">
                                     <a class="small text-danger" href="<?= base_url('auth/forgotpassword'); ?>">Forgot Password?</a>

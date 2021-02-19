@@ -9,6 +9,26 @@ class Auth extends CI_Controller
         $this->load->library('form_validation');
     }
 
+    public function landing()
+    {
+        if ($this->session->userdata('email')) {
+            redirect('user');
+        }
+
+        $data['title'] = 'Landing';
+
+        $this->load->view('auth/landing');
+    }
+
+    public function galery()
+    {
+        if ($this->session->userdata('email')) {
+            redirect('user');
+        }
+
+        $this->load->view('auth/galery');
+    }
+
     public function index()
     {
         if ($this->session->userdata('email')) {
