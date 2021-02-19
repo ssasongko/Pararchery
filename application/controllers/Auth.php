@@ -13,7 +13,9 @@ class Auth extends CI_Controller
     {
         $data['title'] = 'Landing';
 
+        $this->load->view('templates/landing-header');
         $this->load->view('auth/landing');
+        $this->load->view('templates/landing-footer');
     }
 
     public function galery()
@@ -22,7 +24,20 @@ class Auth extends CI_Controller
         $this->load->model('Auth_model', 'authModel');
         $data['pictures'] = $this->authModel->getPictures();
 
+        $this->load->view('templates/landing-header');
         $this->load->view('auth/galery', $data);
+        $this->load->view('templates/landing-footer');
+    }
+
+    public function faq()
+    {
+        // load model
+        $this->load->model('Auth_model', 'authModel');
+        $data['faq'] = $this->authModel->getFAQ();
+
+        $this->load->view('templates/landing-header');
+        $this->load->view('auth/faq', $data);
+        $this->load->view('templates/landing-footer');
     }
 
     public function detail_galery($id)

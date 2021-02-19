@@ -301,4 +301,24 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Image has been deleted!</div>');
         redirect('admin/gallery');
     }
+
+    public function faq()
+    {
+        // title and user
+        $data['title'] = 'Management FAQ';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['myId'] = $this->session->userdata('id');
+
+        // load data dari model untuk halaman admin.
+        $this->load->model('Auth_model', 'faq');
+        $data['athlete'] = $this->faq->getFAQ();
+
+
+        // load tampilan
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/faq', $data);
+        $this->load->view('templates/footer');
+    }
 }
