@@ -1,4 +1,4 @@
-@import url('../css/fonts.css');
+@import url('fonts.css');
 
 html,
 body {
@@ -106,7 +106,7 @@ h4 {
 }
 
 .nav .nav-menu {
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .nav .toggle-collapse {
