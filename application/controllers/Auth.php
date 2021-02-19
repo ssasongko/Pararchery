@@ -11,10 +11,6 @@ class Auth extends CI_Controller
 
     public function landing()
     {
-        if ($this->session->userdata('email')) {
-            redirect('user');
-        }
-
         $data['title'] = 'Landing';
 
         $this->load->view('auth/landing');
@@ -22,19 +18,24 @@ class Auth extends CI_Controller
 
     public function galery()
     {
-        if ($this->session->userdata('email')) {
-            redirect('user');
-        }
+        // load model
+        $this->load->model('Auth_model', 'authModel');
+        $data['pictures'] = $this->authModel->getPictures();
 
-        $this->load->view('auth/galery');
+        $this->load->view('auth/galery', $data);
+    }
+
+    public function detail_galery($id)
+    {
+        // load model
+        $this->load->model('Auth_model', 'authModel');
+        $data['pic'] = $this->authModel->getPicture($id);
+
+        $this->load->view('auth/detail_galery', $data);
     }
 
     public function index()
     {
-        if ($this->session->userdata('email')) {
-            redirect('user');
-        }
-
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 

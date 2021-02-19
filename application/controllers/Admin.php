@@ -238,4 +238,67 @@ class Admin extends CI_Controller
         $this->load->view('admin/detail', $data);
         $this->load->view('templates/footer');
     }
+
+    public function gallery()
+    {
+        // title and user
+        $data['title'] = 'Manage Gallery';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['myId'] = $this->session->userdata('id');
+
+        // load data dari model untuk halaman admin.
+        $this->load->model('Auth_model', 'gallery');
+        $data['athlete'] = $this->gallery->getPictures();
+
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        if ($this->form_validation->run() == false) {
+
+            // load tampilan
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/gallery', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $title = $this->input->post('title');
+            $date = $this->input->post('date');
+
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['upload_path'] = './assets/img/gallery/';
+            $config['max_size']      = '5120';
+
+            // cek jika ada gambar yang akan diupload
+            $upload_image = $_FILES['image']['name'];
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']      = '10048';
+                $config['upload_path'] = './assets/img/gallery/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $image = $this->upload->data('file_name');
+                } else {
+                    echo $this->upload->display_errors();
+                }
+            }
+            $arr = [
+                'id_user' => (int)$data['myId'],
+                "alt" => $title,
+                "location" => $image,
+                "date" => $date
+            ];
+            $this->db->insert('picture', $arr);
+
+            redirect('admin/gallery');
+        }
+    }
+
+    public function gallery_delete($id)
+    {
+        $this->db->delete('picture', array('id_image' => $id));
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Image has been deleted!</div>');
+        redirect('admin/gallery');
+    }
 }

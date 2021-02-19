@@ -30,7 +30,7 @@
 
                 <div class="input-group mb-3">
                     <label class="text p-2" for="time">Time : </label>
-                    <input type="text" class="form-control" id="date" name="date" value="<?= date('Y-m-d h:i:s') ?>" readonly>
+                    <input type="text" class="form-control" id="date" name="date" value="<?= date('Y-m-d G:i:s') ?>" readonly>
                 </div>
 
                 <div class="input-group mb-3">
