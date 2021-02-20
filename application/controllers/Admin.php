@@ -311,14 +311,107 @@ class Admin extends CI_Controller
 
         // load data dari model untuk halaman admin.
         $this->load->model('Auth_model', 'faq');
-        $data['athlete'] = $this->faq->getFAQ();
+        $data['faq'] = $this->faq->getFAQ();
 
+        $this->form_validation->set_rules('question', 'Question', 'required');
+        $this->form_validation->set_rules('answer', 'Answer', 'required');
 
-        // load tampilan
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/faq', $data);
-        $this->load->view('templates/footer');
+        if ($this->form_validation->run() == false) {
+            // load tampilan
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/faq', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $arr = [
+                'id_user' => (int)$data['myId'],
+                "question" => $this->input->post('question'),
+                "answer" => $this->input->post('answer'),
+                "date" => $this->input->post('date')
+            ];
+
+            $this->db->insert('faq', $arr);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">FAQ has been added!</div>');
+            redirect('admin/faq');
+        }
+    }
+
+    public function faq_detail($id)
+    {
+        $data['title'] = 'Management FAQ';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['myId'] = $this->session->userdata('id');
+
+        // load data dari model untuk halaman admin.
+        $this->load->model('Admin_model', 'faq');
+        $data['faq'] = $this->faq->getRowFAQ($id);
+
+        $this->form_validation->set_rules('question', 'Question', 'required');
+        $this->form_validation->set_rules('answer', 'Answer', 'required');
+
+        if ($this->form_validation->run() == false) {
+            // load tampilan
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/detail_faq', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $arr = array(
+                'question' => $this->input->post('question'),
+                'answer' => $this->input->post('answer'),
+            );
+            $this->db->where('id_faq', $id);
+            $this->db->update('faq', $arr);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">FAQ has been edited!</div>');
+            redirect('admin/faq');
+        }
+    }
+
+    public function faq_delete($id)
+    {
+        $this->db->delete('faq', array('id_faq' => $id));
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">FAQ has been deleted!</div>');
+        redirect('admin/faq');
+    }
+
+    public function event()
+    {
+        // title and user
+        $data['title'] = 'Management Event';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        // $data['myId'] = $this->session->userdata('id');
+
+        // load data dari model untuk halaman admin.
+        $this->load->model('Auth_model', 'faq');
+        $data['event'] = $this->faq->getEvents();
+
+        // still pandemic
+        // $this->form_validation->set_rules('question', 'Question', 'required');
+        // $this->form_validation->set_rules('answer', 'Answer', 'required');
+
+        if ($this->form_validation->run() == false) {
+            // load tampilan
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/event', $data);
+            $this->load->view('templates/footer');
+        } else {
+            // nothing happened / nothing to do
+            $arr = [
+                'id_user' => (int)$data['myId'],
+                "question" => $this->input->post('question'),
+                "answer" => $this->input->post('answer'),
+                "date" => $this->input->post('date')
+            ];
+
+            $this->db->insert('faq', $arr);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">FAQ has been added!</div>');
+            redirect('admin/faq');
+        }
     }
 }

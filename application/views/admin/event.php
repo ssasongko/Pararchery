@@ -6,7 +6,7 @@
         <div class="col-lg-12 d-flex justify-content-between mb-3">
             <h1 class="h3 text-gray-800"><?= $title; ?></h1>
             <div>
-                <a href="#" data-toggle="modal" data-target="#newFAQModal" class="btn btn-primary">Add New FAQ</a>
+                <a href="#" data-toggle="modal" data-target="#newEventModal" class="btn btn-primary">Add New Event</a>
             </div>
         </div>
 
@@ -22,24 +22,27 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Upload By</th>
-                            <th scope="col">Question</th>
-                            <th scope="col">Answers</th>
+                            <th scope="col">Event Name</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Desc</th>
                             <th scope="col">Date Created</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $i = 1; ?>
-                        <?php foreach ($faq as $a) : ?>
+                        <?php foreach ($event as $a) : ?>
                             <tr>
                                 <th scope="row"><?= $i; ?></th>
                                 <td><?= $a['name']; ?></td>
-                                <td><?= $a['question']; ?></td>
-                                <td><?= $a['answer']; ?></td>
+                                <td><?= $a['event_name']; ?></td>
+                                <td><?= $a['event_location']; ?></td>
+                                <td><?= $a['event_date']; ?></td>
+                                <td><?= $a['event_desc']; ?></td>
                                 <td><?= $a['date']; ?></td>
                                 <td>
-                                    <a href="<?= base_url('admin/faq_detail/') . $a['id_faq']; ?>" class="badge badge-warning">Edit</a>
-                                    <a href="<?= base_url('admin/faq_delete/') . $a['id_faq']; ?>" class="badge badge-danger">Delete</a>
+                                    <!-- no bugs here still closed during pandemic -->
                                 </td>
                             </tr>
                             <?php $i++; ?>
@@ -56,31 +59,23 @@
 <!-- End of Main Content -->
 
 <!-- Logout Modal-->
-<div class="modal fade" id="newFAQModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="newEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form action="<?= base_url('admin/faq') ?>" method="POST">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New FAQ</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Cannot Add Event</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group mb-2">
-                        <label for="question"><b>Question</b></label>
-                        <textarea type="text" class="form-control" id="question" name="question" placeholder="Fill the box with your questions" required></textarea>
-                    </div>
-                    <div class="form-group mb-2">
-                        <label for="answer"><b>Answer</b></label>
-                        <textarea type="text" class="form-control" id="answer" name="answer" placeholder="Fill the box with your answers" required></textarea>
-                    </div>
-                    <?php date_default_timezone_set("Asia/Jakarta"); ?>
-                    <input type="text" class="form-control" id="date" name="date" value="<?= date('Y-m-d G:i:s') ?>" hidden>
+                    <p>During it's pandemic, activities are limited. Events aren't allowed to be added.</p>
+                    <img class="img-thumbnail" src="<?= base_url('assets/img/') . 'covid.jpg'; ?>" alt="covid">
+                    <span class="badge badge-danger">Stay safe and stay training in home</span>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Upload</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Close and stay at home</button>
                 </div>
             </div>
         </div>

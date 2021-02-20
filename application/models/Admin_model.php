@@ -56,4 +56,10 @@ class Admin_model extends CI_Model
                 `user`.`id` = " . $id;
         return $this->db->query($sql)->result_array();
     }
+
+    public function getRowFAQ($id)
+    {
+        $sql = "SELECT * FROM `faq`,`user` WHERE `faq`.`id_user` = `user`.`id` AND `faq`.`id_faq` = $id";
+        return $this->db->query($sql)->result_array();
+    }
 }

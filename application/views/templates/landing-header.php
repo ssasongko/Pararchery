@@ -39,9 +39,9 @@
                     <li class="nav-link">
                         <a href="<?= base_url('auth/faq') ?>">FAQ</a>
                     </li>
-                    <li class="nav-link">
+                    <!-- <li class="nav-link">
                         <a href="<?= base_url('auth/event') ?>">EVENT</a>
-                    </li>
+                    </li> -->
                     <li class="nav-link">
                         <a href="<?= base_url('auth') ?>">SIGN IN</a>
                     </li>

@@ -20,4 +20,10 @@ class Auth_model extends CI_Model
         $sql = "SELECT * FROM `faq`,`user` WHERE `faq`.`id_user` = `user`.`id`";
         return $this->db->query($sql)->result_array();
     }
+
+    public function getEvents()
+    {
+        $sql = "SELECT * FROM `event`,`user` WHERE `event`.`id_user` = `user`.`id`";
+        return $this->db->query($sql)->result_array();
+    }
 }
