@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2021 at 05:11 PM
+-- Generation Time: Feb 20, 2021 at 04:19 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -145,6 +145,67 @@ INSERT INTO `athlete_scores` (`id`, `id_athelete`, `date_scores`, `location`, `d
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `event`
+--
+
+CREATE TABLE `event` (
+  `id_event` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `event_name` varchar(255) NOT NULL,
+  `event_location` varchar(255) NOT NULL,
+  `event_date` datetime NOT NULL,
+  `event_desc` varchar(255) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faq`
+--
+
+CREATE TABLE `faq` (
+  `id_faq` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` varchar(255) NOT NULL,
+  `date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`id_faq`, `id_user`, `question`, `answer`, `date`) VALUES
+(1, 13, 'Apa goals utama dari dibangunnya aplikasi ini?', 'Memudahkan para pelatih untuk memantau maupun atlet untuk pencatatan penilaian.', '2021-02-15 13:20:43'),
+(2, 13, 'Dimanakah Letak Sekretariat PHAC ?', 'Jl. Pajajaran (GOR PAJAJARAN) Babakan Ciamis, Kec. Sumur Bandung, Kota Bandung, Jawa Barat 40171', '2021-02-16 07:00:00'),
+(5, 0, 'Maitsa                        ', 'Farrassafitri                        ', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `picture`
+--
+
+CREATE TABLE `picture` (
+  `id_image` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `alt` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `picture`
+--
+
+INSERT INTO `picture` (`id_image`, `id_user`, `alt`, `location`, `date`) VALUES
+(28, 13, 'Couple Doing Shoots!', 'couple.JPG', '2021-02-19 22:07:51'),
+(29, 13, 'Three Musketeers', 'Three_Musketeers.JPG', '2021-02-19 22:18:23');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -278,28 +339,10 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (11, 5, 'My Scores', 'athlete/myscores', 'fas fa-book-reader', 1),
 (12, 5, 'Go Scoring!', 'athlete/goscore', 'fas fa-fw fa-star', 1),
 (15, 4, 'List Archers', 'coach/listarchers', 'fas fa-fw fa-users', 1),
-(16, 0, 'Leaderboards', 'athlete/leaderboards', 'fas fa-fw fa-trophy', 1),
-(17, 4, 'Lists Scores', 'coach/listscores', 'fas fa-book-reader', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_token`
---
-
-CREATE TABLE `user_token` (
-  `id` int(11) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `token` varchar(128) NOT NULL,
-  `date_created` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user_token`
---
-
-INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
-(9, 'kokonur1020@gmail.com', 'pH3YjBCfddTo6rrXPE3T1m2WJ8Gi2n9wNQkiya7x7+g=', 1612406776);
+(16, 1, 'Manage Gallery', 'admin/gallery', 'fas fa-fw fa-images', 1),
+(17, 4, 'Lists Scores', 'coach/listscores', 'fas fa-book-reader', 1),
+(18, 1, 'Management FAQ', 'Admin/faq', 'fas fa-fw fa-question-circle', 1),
+(19, 1, 'Management Event', 'Admin/event', 'fas fa-fw fa-calendar-week', 1);
 
 --
 -- Indexes for dumped tables
@@ -318,6 +361,24 @@ ALTER TABLE `athlete`
 ALTER TABLE `athlete_scores`
   ADD PRIMARY KEY (`id`),
   ADD KEY `athlete_scores_ibfk_1` (`id_athelete`);
+
+--
+-- Indexes for table `event`
+--
+ALTER TABLE `event`
+  ADD PRIMARY KEY (`id_event`);
+
+--
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id_faq`);
+
+--
+-- Indexes for table `picture`
+--
+ALTER TABLE `picture`
+  ADD PRIMARY KEY (`id_image`);
 
 --
 -- Indexes for table `user`
@@ -351,12 +412,6 @@ ALTER TABLE `user_sub_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_token`
---
-ALTER TABLE `user_token`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -373,10 +428,22 @@ ALTER TABLE `athlete_scores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT for table `event`
 --
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+ALTER TABLE `event`
+  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id_faq` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `picture`
+--
+ALTER TABLE `picture`
+  MODIFY `id_image` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -400,13 +467,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `user_token`
---
-ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
