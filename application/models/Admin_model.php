@@ -25,7 +25,7 @@ class Admin_model extends CI_Model
     public function getTotalAthletes()
     {
         // fungsi untuk mendapatkan berapa banyaknya total athletes
-        return $this->db->query("SELECT * FROM `athlete`")->num_rows();
+        return $this->db->query("SELECT * FROM `user` `user` WHERE `role_id`= 3")->num_rows();
     }
 
 
